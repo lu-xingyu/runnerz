@@ -3,6 +3,7 @@ package com.xing.runnerz;
 
 import com.xing.runnerz.run.Location;
 import com.xing.runnerz.run.Run;
+import com.xing.runnerz.run.RunRepository;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 import org.springframework.boot.CommandLineRunner;
@@ -28,13 +29,15 @@ public class Application {
 		log.info("something changed again"); // different levels of log can be chosen (config which level you want to see)
 	}
 
-	@Bean
-	CommandLineRunner runner() {
-		return args -> {
-			Run run = new Run(1, "First Run", LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 5, Location.OUTDOOR);
-			log.info("Run: " + run);
-		};
-	}
+
+
+//	@Bean
+//	CommandLineRunner runner(RunRepository runRepository) {
+//		return args -> {
+//			Run run = new Run(1, "First Run", LocalDateTime.now(), LocalDateTime.now().plus(1, ChronoUnit.HOURS), 5, Location.OUTDOOR);
+//			runRepository.create(run);
+//		};
+//	}
 
 	/*
 	* Anonymous Class syntax: (implement an interface and create an instance)
@@ -67,3 +70,12 @@ public class Application {
 * */
 
 /* Spring Boot DevTools monitor the compiled classes (target/classes)*/
+
+/* Bean Scope:
+* singleton (by default, there is only one instance in the container, all application share this one instance
+* prototype: every time you getBean, it will create a new instance and gives it to you
+* request: each HTTP request gets aan instance for itself
+* session: each session gets an instance for itself
+* application: each web application get an instance for itself
+* websocket: each WebSocket session gets an instance
+* */

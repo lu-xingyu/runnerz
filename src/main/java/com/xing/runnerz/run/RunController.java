@@ -45,7 +45,7 @@ public class RunController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     void create(@Valid @RequestBody Run run) {
-        runRepository.create(run);
+        runRepository.save(run);
     }
     // Spring will convert RequestBody to Run object and pass it to this function, the para name in constructor must be the same as the json field name
     // Spring will validate the passing object is valid based on rules given in Run variables
@@ -53,13 +53,18 @@ public class RunController {
     @ResponseStatus(HttpStatus.NO_CONTENT) // only set to NO_CONTENT when method is successfully executed
     @PutMapping("/{id}")
     void update(@Valid @RequestBody Run run, @PathVariable Integer id) {
-        runRepository.update(run, id);
+        runRepository.save(run);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     void delete(@PathVariable Integer id) {
-        runRepository.delete(id);
+        runRepository.delete(runRepository.findById(id).get());
+    }
+
+    @GetMapping("/location/{location}")
+    List<Run> findByLocation(@PathVariable String location) {
+        return runRepository.findAllByLocation(location);
     }
 
 

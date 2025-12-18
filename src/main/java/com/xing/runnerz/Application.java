@@ -1,20 +1,10 @@
 package com.xing.runnerz;
 
 
-import com.xing.runnerz.run.Location;
-import com.xing.runnerz.run.Run;
-import com.xing.runnerz.run.RunRepository;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cglib.core.Local;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
-
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 @SpringBootApplication
 public class Application {

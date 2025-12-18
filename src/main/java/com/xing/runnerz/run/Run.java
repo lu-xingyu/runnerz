@@ -2,6 +2,12 @@ package com.xing.runnerz.run;
 
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
+
+
+import javax.annotation.processing.SupportedSourceVersion;
 import java.time.LocalDateTime;
 /* Record: immutable class, java automatically generates:
 * 1. constructor (canonical constructor: automatically assign value to variables)
@@ -11,6 +17,7 @@ import java.time.LocalDateTime;
 * */
 
 public record Run(
+        @Id
         Integer id,
         @NotEmpty // invalid object can still be created, no errors; checks are only triggered when @Valid is used
         String title,
@@ -18,7 +25,9 @@ public record Run(
         LocalDateTime completedOn,
         @Positive
         Integer miles,
-        Location location
+        Location location,
+        @Version
+        Integer version
 ) {
     // add logical check to canonical constructor;
     // java will automatically add check logic at the start of canonical constructor

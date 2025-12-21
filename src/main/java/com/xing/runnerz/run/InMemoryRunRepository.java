@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Repository
-public class RunRepositoryInMemory {
+public class InMemoryRunRepository {
 
     private List<Run> runs = new ArrayList<>();
 

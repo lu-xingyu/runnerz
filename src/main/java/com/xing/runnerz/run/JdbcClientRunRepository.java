@@ -25,22 +25,22 @@ public class JdbcClientRunRepository {
     }
 
     public Optional<Run> findById(Integer id) {
-        return jdbcClient.sql("SELECT id, title, started_on, completed_on, miles, location FROM run WHERE id = :id")
+        return jdbcClient.sql("SELECT id, title, started_on, completed_on, miles, location, version FROM run WHERE id = :id")
                 .param("id", id)
                 .query(Run.class)
                 .optional();
     }
 
     public void create(Run run) {
-        var updated = jdbcClient.sql("INSERT INTO run(id, title, started_on, completed_on, miles, location) values(?, ?, ?, ?, ?, ?)")
-                .params(List.of(run.id(), run.title(), run.startedOn(), run.completedOn(), run.miles(), run.location().toString()))
+        var updated = jdbcClient.sql("INSERT INTO run(id, title, started_on, completed_on, miles, location, version) values(?, ?, ?, ?, ?, ?, ?)")
+                .params(List.of(run.id(), run.title(), run.startedOn(), run.completedOn(), run.miles(), run.location().toString(), run.version()))
                 .update(); // update() return the number of rows that are affected
         Assert.state(updated == 1, "Failed to create run " + run.title());
     }
 
     public void update(Run run, Integer id) {
-        var updated = jdbcClient.sql("UPDATE run SET title = ?, started_on = ?, completed_on = ?, miles = ?, location = ? WHERE id = ?")
-            .params(List.of(run.title(), run.startedOn(), run.completedOn(), run.miles(), run.location().toString(), id))
+        var updated = jdbcClient.sql("UPDATE run SET title = ?, started_on = ?, completed_on = ?, miles = ?, location = ?, version = ? WHERE id = ?")
+            .params(List.of(run.title(), run.startedOn(), run.completedOn(), run.miles(), run.location().toString(), run.version(), id))
             .update();
         Assert.state(updated == 1, "Failed to update run " + run.title());
     }
